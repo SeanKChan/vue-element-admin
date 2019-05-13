@@ -81,10 +81,11 @@
     "autoprefixer": "^9.5.1",
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "10.0.1",
-    "babel-jest": "23.6.0",
+    "babel-jest": "^24.8.0",
     "chalk": "2.4.2",
     "chokidar": "2.1.5",
     "connect": "3.6.6",
+    "cz-conventional-changelog": "^2.1.0",
     "eslint": "5.15.3",
     "eslint-plugin-vue": "5.2.2",
     "html-webpack-plugin": "3.2.0",
@@ -108,6 +109,12 @@
   },
   "browserslist": [
     "> 1%",
-    "last 2 versions"
-  ]
+    "last 2 versions",
+    "not ie <= 8"
+  ],
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
 }
