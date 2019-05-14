@@ -28,19 +28,13 @@
 
 ## 简介
 
-[vue-element-admin](https://panjiachen.github.io/vue-element-admin) 是一个后台前端解决方案，它基于 [vue](https://github.com/vuejs/vue) 和 [element-ui](https://github.com/ElemeFE/element)实现，采用前沿的前端技术栈，内置了 i18n 国际化解决方案，动态路由，权限验证，提炼了典型的业务模型，提供了丰富的功能组件，快速搭建企业级中后台产品原型。
+[vue-element-admin](https://git.io/fjWF8) 是一个后台前端解决方案，它基于 [vue](https://github.com/vuejs/vue) 和 [element-ui](https://github.com/ElemeFE/element)实现，采用前沿的前端技术栈，内置了 i18n 国际化解决方案，动态路由，权限验证，提炼了典型的业务模型，提供了丰富的功能组件，快速搭建企业级中后台产品原型。
 
-- [在线预览](https://panjiachen.github.io/vue-element-admin)
+- [在线预览](https://git.io/fjWF8)
 
 - [使用文档](https://panjiachen.github.io/vue-element-admin-site/zh/)
 
-- [Gitter 讨论组](https://gitter.im/vue-element-admin/discuss)
-
-- [Donate](https://panjiachen.gitee.io/vue-element-admin-site/zh/donate)
-
 - [Wiki](https://github.com/PanJiaChen/vue-element-admin/wiki)
-
-- [Gitee](https://panjiachen.gitee.io/vue-element-admin/) 在线预览（国内用户可访问该地址）
 
 - [国内访问文档](https://panjiachen.gitee.io/vue-element-admin-site/zh/) 文档（方便没翻墙的用户查看）
 
@@ -77,12 +71,6 @@
  <p align="center">
   <img width="900" src="https://wpimg.wallstcn.com/a5894c1b-f6af-456e-82df-1151da0839bf.png">
 </p>
-
-## Sponsors
-
-Become a sponsor and get your logo on our README on GitHub with a link to your site. [[Become a sponsor]](https://www.patreon.com/panjiachen)
-
-<a href="https://flatlogic.com/admin-dashboards?from=vue-element-admin"><img width="150px" src="https://wpimg.wallstcn.com/9c0b719b-5551-4c1e-b776-63994632d94a.png" /></a><p>Admin Dashboard Templates made with Vue, React and Angular.</p>
 
 ## 功能
 
@@ -154,7 +142,7 @@ Become a sponsor and get your logo on our README on GitHub with a link to your s
 
 ```bash
 # 克隆项目
-git clone https://github.com/PanJiaChen/vue-element-admin.git
+git clone git@github.com:ZYBANK-FE/vue-element-admin.git
 
 # 进入项目目录
 cd vue-element-admin
@@ -205,18 +193,7 @@ Detailed changes for each release are documented in the [release notes](https://
 
 ## Online Demo
 
-[在线 Demo](https://panjiachen.github.io/vue-element-admin)
-
-## Donate
-
-如果你觉得这个项目帮助到了你，你可以帮作者买一杯果汁表示鼓励 :tropical_drink:
-![donate](https://panjiachen.github.io/donate/donation.png)
-
-[更多捐赠方式](https://panjiachen.gitee.io/vue-element-admin-site/zh/donate)
-
-[Paypal Me](https://www.paypal.me/panfree23)
-
-[Buy me a coffee](https://www.buymeacoffee.com/Pan)
+[在线 Demo](https://zybank-fe.github.io/vue-element-admin)
 
 ## Browsers support
 
