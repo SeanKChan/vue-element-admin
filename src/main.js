@@ -41,6 +41,10 @@ Object.keys(filters).forEach(key => {
   Vue.filter(key, filters[key])
 })
 
+window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame || function(callback) {
+  setTimeout(callback, 1000 / 60)
+}
+
 Vue.config.productionTip = false
 
 new Vue({

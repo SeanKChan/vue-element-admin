@@ -45,9 +45,7 @@
 
     <el-table-column class-name="status-col" label="Status" width="110">
       <template slot-scope="{row}">
-        <el-tag :type="row.status | statusFilter">
-          {{ row.status }}
-        </el-tag>
+        <el-tag :type="row.status | statusFilter">{{ row.status }}</el-tag>
       </template>
     </el-table-column>
   </el-table>
@@ -89,13 +87,12 @@ export default {
     this.getList()
   },
   methods: {
-    getList() {
+    async getList() {
       this.loading = true
       this.$emit('create') // for test
-      fetchList(this.listQuery).then(response => {
-        this.list = response.data.items
-        this.loading = false
-      })
+      const response = await fetchList(this.listQuery)
+      this.list = response.data.items
+      this.loading = false
     }
   }
 }
