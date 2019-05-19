@@ -1,10 +1,23 @@
 <template>
   <div class="app-container">
-    <el-input v-model="filename" placeholder="Please enter the file name (default excel-list)" style="width:350px;" prefix-icon="el-icon-document" />
-    <el-button :loading="downloadLoading" style="margin-bottom:20px" type="primary" icon="document" @click="handleDownload">
-      Export Selected Items
-    </el-button>
-    <a href="https://panjiachen.github.io/vue-element-admin-site/feature/component/excel.html" target="_blank" style="margin-left:15px;">
+    <el-input
+      v-model="filename"
+      placeholder="Please enter the file name (default excel-list)"
+      style="width:350px;"
+      prefix-icon="el-icon-document"
+    />
+    <el-button
+      :loading="downloadLoading"
+      style="margin-bottom:20px"
+      type="primary"
+      icon="document"
+      @click="handleDownload"
+    >Export Selected Items</el-button>
+    <a
+      href="https://panjiachen.github.io/vue-element-admin-site/feature/component/excel.html"
+      target="_blank"
+      style="margin-left:15px;"
+    >
       <el-tag type="info">Documentation</el-tag>
     </a>
     <el-table
@@ -19,14 +32,10 @@
     >
       <el-table-column type="selection" align="center" />
       <el-table-column align="center" label="Id" width="95">
-        <template slot-scope="scope">
-          {{ scope.$index }}
-        </template>
+        <template slot-scope="scope">{{ scope.$index }}</template>
       </el-table-column>
       <el-table-column label="Title">
-        <template slot-scope="scope">
-          {{ scope.row.title }}
-        </template>
+        <template slot-scope="scope">{{ scope.row.title }}</template>
       </el-table-column>
       <el-table-column label="Author" width="110" align="center">
         <template slot-scope="scope">
@@ -34,9 +43,7 @@
         </template>
       </el-table-column>
       <el-table-column label="Readings" width="115" align="center">
-        <template slot-scope="scope">
-          {{ scope.row.pageviews }}
-        </template>
+        <template slot-scope="scope">{{ scope.row.pageviews }}</template>
       </el-table-column>
       <el-table-column align="center" label="PDate" width="220">
         <template slot-scope="scope">
@@ -66,12 +73,11 @@ export default {
     this.fetchData()
   },
   methods: {
-    fetchData() {
+    async fetchData() {
       this.listLoading = true
-      fetchList(this.listQuery).then(response => {
-        this.list = response.data.items
-        this.listLoading = false
-      })
+      const response = await fetchList(this.listQuery)
+      this.list = response.data.items
+      this.listLoading = false
     },
     handleSelectionChange(val) {
       this.multipleSelection = val
@@ -81,7 +87,13 @@ export default {
         this.downloadLoading = true
         import('@/vendor/Export2Excel').then(excel => {
           const tHeader = ['Id', 'Title', 'Author', 'Readings', 'Date']
-          const filterVal = ['id', 'title', 'author', 'pageviews', 'display_time']
+          const filterVal = [
+            'id',
+            'title',
+            'author',
+            'pageviews',
+            'display_time'
+          ]
           const list = this.multipleSelection
           const data = this.formatJson(filterVal, list)
           excel.export_json_to_excel({

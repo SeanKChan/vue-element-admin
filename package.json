@@ -6,6 +6,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "npx vue-cli-service serve",
+    "start": "npm run dev",
     "build:prod": "npx vue-cli-service build",
     "build:stage": "npx vue-cli-service build --mode staging",
     "preview": "node build/index.js --preview",
@@ -13,7 +14,7 @@
     "test:unit": "npx jest --clearCache && vue-cli-service test:unit",
     "test:ci": "npm run lint && npm run test:unit",
     "svgo": "npx svgo -f src/icons/svg --config=src/icons/svgo.yml",
-    "new": "plop"
+    "new": "npx plop"
   },
   "husky": {
     "hooks": {
