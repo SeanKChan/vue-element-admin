@@ -2,18 +2,18 @@
   "name": "vue-element-admin",
   "version": "4.0.1",
   "description": "A magical vue admin. An out-of-box UI solution for enterprise applications. Newest development stack of vue. Lots of awesome features",
-  "author": "Pan <panfree23@gmail.com>",
+  "author": "Chan <chan597463138@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "vue-cli-service serve",
-    "build:prod": "vue-cli-service build",
-    "build:stage": "vue-cli-service build --mode staging",
+    "dev": "npx vue-cli-service serve",
+    "build:prod": "npx vue-cli-service build",
+    "build:stage": "npx vue-cli-service build --mode staging",
     "preview": "node build/index.js --preview",
-    "lint": "eslint --ext .js,.vue src",
-    "test:unit": "jest --clearCache && vue-cli-service test:unit",
+    "lint": "npx eslint --ext .js,.vue src",
+    "test:unit": "npx jest --clearCache && vue-cli-service test:unit",
     "test:ci": "npm run lint && npm run test:unit",
-    "svgo": "svgo -f src/icons/svg --config=src/icons/svgo.yml",
-    "new": "plop",
+    "svgo": "npx svgo -f src/icons/svg --config=src/icons/svgo.yml",
+    "new": "npx plop",
     "deploy": "bash deploy.sh"
   },
   "husky": {
@@ -86,7 +86,9 @@
     "babel-jest": "23.6.0",
     "chalk": "2.4.2",
     "chokidar": "2.1.5",
+    "commitizen": "^3.1.1",
     "connect": "3.6.6",
+    "cz-conventional-changelog": "^2.1.0",
     "eslint": "5.15.3",
     "eslint-plugin-vue": "5.2.2",
     "html-webpack-plugin": "3.2.0",
@@ -112,5 +114,10 @@
     "> 1%",
     "last 2 versions",
     "not ie <= 8"
-  ]
+  ],
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
 }
