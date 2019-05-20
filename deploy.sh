@@ -20,6 +20,6 @@ git add -A
 git commit -m 'deploy'
 
 # if you are deploying to https://<USERNAME>.github.io/<REPO>
-git push -f git@github.com:PanJiaChen/vue-element-admin.git master:gh-pages
+git push -f git@github.com:ZYBANK-FE/vue-element-admin.git master:gh-pages
 
 cd -
