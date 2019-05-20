@@ -1,7 +1,7 @@
 import request from '@/utils/request'
 
-export function fetchList(query) {
-  return request({
+export async function fetchList(query) {
+  return await request({
     url: '/article/list',
     method: 'get',
     params: query
