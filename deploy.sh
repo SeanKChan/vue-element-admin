@@ -15,8 +15,6 @@ cd presite
 #创建.nojekyll 防止Github Pages build错误
 touch .nojekyll
 
-cd ..
-
 git init
 git add -A
 git commit -m 'deploy'
