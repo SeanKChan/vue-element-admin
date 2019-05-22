@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "npx vue-cli-service serve",
     "start": "npm run dev",
-    "build:prod": "npx vue-cli-service build",
+    "build:prod": "npx vue-cli-service build && presite ./dist",
     "build:stage": "npx vue-cli-service build --mode staging",
     "preview": "node build/index.js --preview",
     "lint": "npx eslint --ext .js,.vue src",
