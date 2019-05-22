@@ -7,7 +7,7 @@ set -e
 npm run build:prod  -- --report
 
 # navigate into the build output directory
-cd dist
+cd .presite
 
 # if you are deploying to a custom domain
 # echo 'www.example.com' > CNAME
@@ -15,11 +15,13 @@ cd dist
 #创建.nojekyll 防止Github Pages build错误
 touch .nojekyll
 
+cd ..
+
 git init
 git add -A
 git commit -m 'deploy'
 
 # if you are deploying to https://<USERNAME>.github.io/<REPO>
-git push -f git@github.com:ZYBANK-FE/vue-element-admin.git master:gh-pages
+git push -f git@github.com:SeanKChan/vue-element-admin.git master:gh-pages
 
 cd -
