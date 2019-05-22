@@ -7,7 +7,7 @@ set -e
 npm run build:prod  -- --report
 
 # navigate into the build output directory
-cd .presite
+cd presite
 
 # if you are deploying to a custom domain
 # echo 'www.example.com' > CNAME
