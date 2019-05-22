@@ -1,5 +1,5 @@
 module.exports = {
-  title: '大数据中后模板',
+  title: '大数据中后台模板',
 
   /**
    * @type {boolean} true | false
