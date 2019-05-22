@@ -7,15 +7,16 @@
   "scripts": {
     "dev": "npx vue-cli-service serve",
     "start": "npm run dev",
-    "build:prod": "npx vue-cli-service build && presite ./dist -o presite",
-    "build:stage": "npx vue-cli-service build --mode staging",
+    "build:prod": "npm run clear && npx vue-cli-service build && presite ./dist -o presite",
+    "build:stage": "npm run clear && npx vue-cli-service build --mode staging",
     "preview": "node build/index.js --preview",
     "lint": "npx eslint --ext .js,.vue src",
     "test:unit": "npx jest --clearCache && vue-cli-service test:unit",
     "test:ci": "npm run lint && npm run test:unit",
     "svgo": "npx svgo -f src/icons/svg --config=src/icons/svgo.yml",
     "new": "npx plop",
-    "deploy": "bash deploy.sh"
+    "deploy": "bash deploy.sh",
+    "clear": "rm -rf dist/ presite/"
   },
   "husky": {
     "hooks": {
