@@ -3,10 +3,12 @@
     <transition name="sidebarLogoFade">
       <router-link v-if="collapse" key="collapse" class="sidebar-logo-link" to="/">
         <!-- <svg-icon icon-class="logo-bank" class="sidebar-logo" /> -->
+        <svg-icon icon-class="iron-man" class="sidebar-logo" />
       </router-link>
       <router-link v-else key="expand" class="sidebar-logo-link" to="/">
         <!-- <svg-icon icon-class="logo-bank" class="sidebar-logo" /> -->
-        <h1 class="sidebar-title">{{ title }} </h1>
+        <svg-icon icon-class="iron-man" class="sidebar-logo" />
+        <h1 class="sidebar-title">{{ title }}</h1>
       </router-link>
     </transition>
   </div>
@@ -23,7 +25,7 @@ export default {
   },
   data() {
     return {
-      title: 'background-system'
+      title: 'backend-system'
     }
   }
 }
@@ -44,7 +46,7 @@ export default {
   width: 100%;
   height: 50px;
   line-height: 50px;
-  background: #02213E;
+  background: #02213e;
   text-align: center;
   overflow: hidden;
 
