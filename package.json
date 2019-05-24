@@ -5,18 +5,17 @@
   "author": "Chan <chan597463138@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "npx vue-cli-service serve",
+    "dev": "vue-cli-service serve",
     "start": "npm run dev",
-    "build:prod": "npm run clear && npx vue-cli-service build && presite ./dist -o presite",
-    "build:stage": "npm run clear && npx vue-cli-service build --mode staging",
+    "build:prod": "vue-cli-service build",
+    "build:stage": "npm run clear &&  vue-cli-service build --mode staging",
     "preview": "node build/index.js --preview",
-    "lint": "npx eslint --ext .js,.vue src",
-    "test:unit": "npx jest --clearCache && vue-cli-service test:unit",
+    "lint": " eslint --ext .js,.vue src",
+    "test:unit": " jest --clearCache && vue-cli-service test:unit",
     "test:ci": "npm run lint && npm run test:unit",
-    "svgo": "npx svgo -f src/icons/svg --config=src/icons/svgo.yml",
-    "new": "npx plop",
-    "deploy": "bash deploy.sh",
-    "clear": "rm -rf dist/ presite/"
+    "svgo": " svgo -f src/icons/svg --config=src/icons/svgo.yml",
+    "new": " plop",
+    "deploy": "bash deploy.sh"
   },
   "husky": {
     "hooks": {
@@ -98,7 +97,6 @@
     "mockjs": "1.0.1-beta3",
     "node-sass": "^4.9.0",
     "plop": "2.3.0",
-    "presite": "^1.0.0",
     "runjs": "^4.3.2",
     "sass-loader": "^7.1.0",
     "script-ext-html-webpack-plugin": "2.1.3",
