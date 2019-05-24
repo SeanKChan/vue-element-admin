@@ -5,16 +5,16 @@
   "author": "Chan <chan597463138@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "npx vue-cli-service serve",
+    "dev": "vue-cli-service serve",
     "start": "npm run dev",
-    "build:prod": "npx vue-cli-service build",
-    "build:stage": "npx vue-cli-service build --mode staging",
+    "build:prod": "vue-cli-service build",
+    "build:stage": "vue-cli-service build --mode staging",
     "preview": "node build/index.js --preview",
-    "lint": "npx eslint --ext .js,.vue src",
-    "test:unit": "npx jest --clearCache && vue-cli-service test:unit",
+    "lint": "eslint --ext .js,.vue src",
+    "test:unit": "jest --clearCache && vue-cli-service test:unit",
     "test:ci": "npm run lint && npm run test:unit",
-    "svgo": "npx svgo -f src/icons/svg --config=src/icons/svgo.yml",
-    "new": "npx plop"
+    "svgo": "svgo -f src/icons/svg --config=src/icons/svgo.yml",
+    "new": "plop"
   },
   "husky": {
     "hooks": {
@@ -63,7 +63,6 @@
     "screenfull": "4.2.0",
     "showdown": "1.9.0",
     "sortablejs": "1.8.4",
-    "sql-formatter": "^2.3.2",
     "tui-editor": "1.3.3",
     "vue": "2.6.10",
     "vue-codemirror": "^3.1.8",
@@ -79,7 +78,7 @@
     "@babel/register": "7.0.0",
     "@vue/cli-plugin-babel": "3.5.3",
     "@vue/cli-plugin-eslint": "^3.9.1",
-    "@vue/cli-plugin-unit-jest": "^3.7.0",
+    "@vue/cli-plugin-unit-jest": "^3.8.0",
     "@vue/cli-service": "3.5.3",
     "@vue/test-utils": "1.0.0-beta.29",
     "autoprefixer": "^9.5.1",
