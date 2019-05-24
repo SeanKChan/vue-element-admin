@@ -11,7 +11,7 @@
 </template>
 <script>
 import { codemirror, CodeMirror } from 'vue-codemirror'
-// import sqlFormatter from 'sql-formatter'
+import sqlFormatter from './sqlFormatter'
 import _ from 'lodash'
 
 // active-line.js
@@ -100,13 +100,13 @@ export default {
         keyMap: 'sublime',
         // 按键映射，比如Ctrl键映射autocomplete，autocomplete是hint代码提示事件
         extraKeys: {
-          'F10': (cm) => {
+          F10: cm => {
             this.fullScreenFun()
           },
-          'Esc': (cm) => {
+          Esc: cm => {
             this.fullScreenFun(false)
           },
-          'F9': () => {
+          F9: () => {
             this.formatSqlFun()
           },
           'Ctrl-space': 'autocomplete'
@@ -207,10 +207,10 @@ export default {
         })
         return
       }
-      // this.code = sqlFormatter.format(this.code, {
-      //   language: 'n1ql', // Defaults to "sql"
-      //   indent: '    ' // Defaults to two spaces
-      // })
+      this.code = sqlFormatter.format(this.code, {
+        language: 'n1ql', // Defaults to "sql"
+        indent: '    ' // Defaults to two spaces
+      })
       // TODO: 调用接口格式化
       // const params = {
       //   engine: this.engine,
@@ -254,11 +254,19 @@ export default {
         const token = this.getToken(editor, cur)
         const word = token.string.toLowerCase().trim() // 关键字
 
-        if ((e.key === 'Enter') || (e.key === 'Tab') || (e.key === 'Escape') || word === '') {
+        if (
+          e.key === 'Enter' ||
+          e.key === 'Tab' ||
+          e.key === 'Escape' ||
+          word === ''
+        ) {
           this.currentWord = ''
           return true
         }
-        if (this.currentWord === word && (e.key === 'ArrowUp' || e.key === 'ArrowDown')) {
+        if (
+          this.currentWord === word &&
+          (e.key === 'ArrowUp' || e.key === 'ArrowDown')
+        ) {
           return true
         }
         this.currentWord = word
@@ -278,9 +286,11 @@ export default {
       }
       const tablesAlias = this.getTablesAndAlias(value)
       const leftValue = editor.getRange({ line: 0, ch: 0 }, cur)
-      if (TABLE_SUGGESET_POS_REG.test(leftValue) && this.dsName) { // from join 后请求表名
+      if (TABLE_SUGGESET_POS_REG.test(leftValue) && this.dsName) {
+        // from join 后请求表名
         this.getTableNames({ dsName: this.dsName, q: word })
-      } else if (tablesAlias.length && this.dsName) { // 是否有表 表是否有别名
+      } else if (tablesAlias.length && this.dsName) {
+        // 是否有表 表是否有别名
         this.fetchColumns(tablesAlias, word)
       } else {
         this.showSuggestMenu('local') // 本地联想
@@ -355,7 +365,10 @@ export default {
         list = list.concat(a)
       }
       // 联想列名
-      const sqlSuggestColumns = this.getSuggestListByRequsest(this.sqlSuggestColumns, word)
+      const sqlSuggestColumns = this.getSuggestListByRequsest(
+        this.sqlSuggestColumns,
+        word
+      )
       list = list.concat(sqlSuggestColumns)
       // 变量
       if (word.indexOf('.') < 0) {
@@ -403,7 +416,10 @@ export default {
     getToken(e, cur) {
       const t = e.getTokenAt(cur)
 
-      if (t.string && (t.string.indexOf('.') >= 0 || t.string.indexOf('$') >= 0)) {
+      if (
+        t.string &&
+        (t.string.indexOf('.') >= 0 || t.string.indexOf('$') >= 0)
+      ) {
         if (cur.ch > 0) {
           const before = e.getTokenAt({
             line: cur.line,
@@ -418,13 +434,13 @@ export default {
     // 别名是否合法
     isLegalAlias(alias) {
       const keywords = {
-        'where': 1,
-        'on': 1,
-        'using': 1,
-        'join': 1,
-        'group': 1,
-        'order': 1,
-        'limit': 1
+        where: 1,
+        on: 1,
+        using: 1,
+        join: 1,
+        group: 1,
+        order: 1,
+        limit: 1
       }
       return !keywords[alias.toLowerCase()]
     },
@@ -434,7 +450,7 @@ export default {
       const names = []
       for (let i = 0; i < TABLES_PATTENS.length; i++) {
         const reg = TABLES_PATTENS[i]
-        for (; ;) {
+        for (;;) {
           const found = reg.exec(sql)
           if (!found) {
             break
@@ -519,17 +535,18 @@ export default {
     },
     getTableIdByName(name) {
       let id
-      this.sqlSuggestTableLists && this.sqlSuggestTableLists.forEach((table) => {
-        if (table.tableName === name) {
-          id = table.tableId
-        }
-      })
+      this.sqlSuggestTableLists &&
+        this.sqlSuggestTableLists.forEach(table => {
+          if (table.tableName === name) {
+            id = table.tableId
+          }
+        })
       return id
     },
     // 获取列名列表
     getCols({ body, leftWord = '' }) {
       const params = { body, sn: 100 }
-      params.body.tables = params.body.tables.map((table) => {
+      params.body.tables = params.body.tables.map(table => {
         return this.getTableIdByName(table)
       })
       // TODO: 调用接口获取列名
@@ -550,24 +567,22 @@ export default {
       //   }
       // })
     },
-    Hint() {
-    }
-
+    Hint() {}
   }
 }
 </script>
 <style>
 .sql-editor {
   height: 505px;
-  border: 1px solid #DDE2E8;
+  border: 1px solid #dde2e8;
   border-radius: 1px;
   margin-right: 20px;
   height: 100%;
 
   .CodeMirror {
-    font-family: Monaco, Consolas, 'Andale Mono', 'Ubuntu Mono', monospace;
+    font-family: Monaco, Consolas, "Andale Mono", "Ubuntu Mono", monospace;
     height: 100%;
-    background: #F9FAFC;
+    background: #f9fafc;
 
     &.CodeMirror-fullscreen {
       z-index: 2000;
@@ -575,7 +590,7 @@ export default {
   }
 
   .cm-s-xq-dark.CodeMirror {
-    background: #28324B;
+    background: #28324b;
     box-shadow: 0 2px 5px 0 rgba(25, 36, 46, 0.11);
     border-radius: 1px;
   }
@@ -585,13 +600,13 @@ export default {
   }
 
   .cm-s-xq-dark .CodeMirror-gutters {
-    background: #252F47;
+    background: #252f47;
     border-right: none;
-    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.40);
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.4);
   }
 
   .cm-s-xq-dark .CodeMirror-linenumber {
-    color: #929DB8;
+    color: #929db8;
   }
 
   .CodeMirror-lines {
@@ -619,7 +634,7 @@ ul.CodeMirror-hints {
   }
 
   li.CodeMirror-hint-active {
-    background-color: #F3F4F6;
+    background-color: #f3f4f6;
     color: #666;
   }
 }
