@@ -3,9 +3,7 @@
     <codemirror
       ref="codeEditor"
       v-model="code"
-      height="100%;"
       :options="editorOptions"
-      style="zoom: 2;"
     />
   </div>
 </template>
@@ -450,7 +448,7 @@ export default {
       const names = []
       for (let i = 0; i < TABLES_PATTENS.length; i++) {
         const reg = TABLES_PATTENS[i]
-        for (;;) {
+        for (; ;) {
           const found = reg.exec(sql)
           if (!found) {
             break
@@ -536,11 +534,11 @@ export default {
     getTableIdByName(name) {
       let id
       this.sqlSuggestTableLists &&
-        this.sqlSuggestTableLists.forEach(table => {
-          if (table.tableName === name) {
-            id = table.tableId
-          }
-        })
+      this.sqlSuggestTableLists.forEach(table => {
+        if (table.tableName === name) {
+          id = table.tableId
+        }
+      })
       return id
     },
     // 获取列名列表
@@ -567,19 +565,20 @@ export default {
       //   }
       // })
     },
-    Hint() {}
+    Hint() {
+    }
   }
 }
 </script>
-<style>
+<style lang="scss" scoped>
 .sql-editor {
-  height: 505px;
+  height: 100%;
+  box-sizing: border-box;
   border: 1px solid #dde2e8;
   border-radius: 1px;
   margin-right: 20px;
-  height: 100%;
 
-  .CodeMirror {
+  /deep/ .CodeMirror {
     font-family: Monaco, Consolas, "Andale Mono", "Ubuntu Mono", monospace;
     height: 100%;
     background: #f9fafc;
