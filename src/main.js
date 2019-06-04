@@ -18,6 +18,9 @@ import './permission' // permission control
 import './utils/error-log' // error log
 
 import * as filters from './filters' // global filters
+import _ from 'lodash'
+
+window._ = _
 
 /**
  * If you don't want to use mock-server
@@ -28,6 +31,7 @@ import * as filters from './filters' // global filters
  * please remove it before going online! ! !
  */
 import { mockXHR } from '../mock'
+
 if (process.env.NODE_ENV === 'production') {
   mockXHR()
 }
