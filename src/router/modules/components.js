@@ -31,6 +31,12 @@ const componentsRouter = {
       meta: { title: 'JSON Editor' }
     },
     {
+      path: 'sql-editor',
+      component: () => import('@/views/components-demo/sql-editor'),
+      name: 'SqlEditorDemo',
+      meta: { title: 'SQL Editor' }
+    },
+    {
       path: 'split-pane',
       component: () => import('@/views/components-demo/split-pane'),
       name: 'SplitpaneDemo',

@@ -155,6 +155,12 @@ export const asyncRoutes = [
         meta: { title: 'Json Editor' }
       },
       {
+        path: 'sql-editor',
+        component: 'views/components-demo/sql-editor',
+        name: 'SqlEditorDemo',
+        meta: { title: 'Sql Editor' }
+      },
+      {
         path: 'split-pane',
         component: 'views/components-demo/split-pane',
         name: 'SplitpaneDemo',
