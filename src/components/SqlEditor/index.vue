@@ -11,28 +11,21 @@
 import { codemirror, CodeMirror } from 'vue-codemirror'
 import sqlFormatter from './sqlFormatter'
 import _ from 'lodash'
-
 // active-line.js
 import 'codemirror/addon/selection/active-line.js'
-
 // styleSelectedText
 import 'codemirror/addon/selection/mark-selection.js'
 import 'codemirror/addon/search/searchcursor.js'
-
 // hint
 import 'codemirror/addon/hint/show-hint.js'
 import 'codemirror/addon/hint/show-hint.css'
-
 // highlightSelectionMatches
 import 'codemirror/addon/scroll/annotatescrollbar.js'
 import 'codemirror/addon/search/matchesonscrollbar.js'
-import 'codemirror/addon/search/searchcursor.js'
 import 'codemirror/addon/search/match-highlighter.js'
-
 // keyMap
 import 'codemirror/mode/clike/clike.js'
 import 'codemirror/keymap/sublime.js'
-
 // foldGutter
 import 'codemirror/addon/fold/foldgutter.css'
 import 'codemirror/addon/fold/brace-fold.js'
@@ -42,16 +35,14 @@ import 'codemirror/addon/fold/foldgutter.js'
 import 'codemirror/addon/fold/indent-fold.js'
 import 'codemirror/addon/fold/markdown-fold.js'
 import 'codemirror/addon/fold/xml-fold.js'
-
 // theme css
 import 'codemirror/theme/xq-dark.css'
 import 'codemirror/theme/xq-light.css'
-
 // fullScreen
 import 'codemirror/addon/display/fullscreen.css'
 import 'codemirror/addon/display/fullscreen.js'
 
-import { KEYWORDS, FUNCTIONS } from './editor-box'
+import { FUNCTIONS, KEYWORDS } from './editor-box'
 // import api from '../../api/interface'
 // 匹配 （from || join）关键字
 const TABLE_SUGGESET_POS_REG = /(^|\s+)(from|join)\s+(\S*)$/i
@@ -73,10 +64,21 @@ export default {
       default: 'xq-light'
     },
     fullScreenEdit: Boolean,
-    formatSql: Boolean,
     dsName: String,
     systemVars: Array,
-    engine: Number
+    engine: Number,
+    remoteSqlFormatFunc: {
+      type: Function,
+      default: null
+    },
+    remoteGetTableNames: {
+      type: Function,
+      default: null
+    },
+    remoteGetColNames: {
+      type: Function,
+      default: null
+    }
   },
   data() {
     return {
@@ -154,7 +156,6 @@ export default {
     fullScreenEdit(val) {
       this.fullScreenFun(val)
     },
-    formatSql: 'formatSqlFun',
     themeKey: 'changeTheme',
     hintList: 'showHintList'
   },
@@ -197,7 +198,7 @@ export default {
       }
     },
     // 格式化
-    formatSqlFun() {
+    async formatSqlFun() {
       if (this.code.length > 50000) {
         this.$message({
           type: 'warning',
@@ -205,10 +206,21 @@ export default {
         })
         return
       }
-      this.code = sqlFormatter.format(this.code, {
-        language: 'n1ql', // Defaults to "sql"
-        indent: '    ' // Defaults to two spaces
-      })
+      try {
+        if (_.isEmpty(this.remoteSqlFormatFunc)) {
+          // 使用本地格式化
+          this.code = sqlFormatter.format(this.code, {
+            language: 'n1ql', // Defaults to "sql"
+            indent: '    ' // Defaults to two spaces
+          })
+          return
+        }
+        // 远程格式化
+        this.code = await this.remoteSqlFormatFunc()
+      } catch (ex) {
+        console.error('[sql-editor error]', ex)
+      }
+
       // TODO: 调用接口格式化
       // const params = {
       //   engine: this.engine,
@@ -276,7 +288,7 @@ export default {
       }, 100)
     },
     // 获取远程接口数据
-    getSuggestFromServer(editor, value, word) {
+    async getSuggestFromServer(editor, value, word) {
       const cur = editor.getCursor()
       // 记录当前查询关键词
       if (word.trim() === '') {
@@ -286,7 +298,7 @@ export default {
       const leftValue = editor.getRange({ line: 0, ch: 0 }, cur)
       if (TABLE_SUGGESET_POS_REG.test(leftValue) && this.dsName) {
         // from join 后请求表名
-        this.getTableNames({ dsName: this.dsName, q: word })
+        await this.getTableNames({ dsName: this.dsName, q: word })
       } else if (tablesAlias.length && this.dsName) {
         // 是否有表 表是否有别名
         this.fetchColumns(tablesAlias, word)
@@ -501,24 +513,25 @@ export default {
     },
     // 联想表名|列名处理
     getSuggestListByRequsest(list, word) {
-      const listArr = []
-      const map = {}
-      for (let i = 0, len = list.length; i < len; i++) {
-        const item = list[i].toLowerCase()
-        if (item.indexOf(word.trim()) !== -1) {
-          // if (word === item) {
-          //     continue;
-          // }
-          if (!map[list[i]]) {
-            listArr.push(list[i])
-            map[list[i]] = true
-          }
-        }
-      }
-      return listArr
+      // const listArr = []
+      // const map = {}
+      // for (let i = 0, len = list.length; i < len; i++) {
+      //   const item = list[i].toLowerCase()
+      //   if (item.indexOf(word.trim()) !== -1) {
+      //     // if (word === item) {
+      //     //     continue;
+      //     // }
+      //     if (!map[list[i]]) {
+      //       listArr.push(list[i])
+      //       map[list[i]] = true
+      //     }
+      //   }
+      // }
+      const tmpArr = list.filter(o => o.includes(word))
+      return [...new Set(tmpArr)]
     },
     // 获取表名列表
-    getTableNames(params) {
+    async getTableNames(params) {
       params = { ...params, sn: 100 }
       // TODO: 调用接口获取表名
       // api.getTableNames(params).then(result => {
@@ -530,6 +543,16 @@ export default {
       //     this.showSuggestMenu()
       //   }
       // })
+      /* {
+        tableName: String,
+        tableId: Number
+      }*/
+      if (_.isEmpty(this.remoteGetTableNames)) {
+        return
+      }
+      this.sqlSuggestTableLists = await this.remoteGetTableNames(params)
+      this.sqlSuggestTableNameLists = this.sqlSuggestTableLists.map(o => o.tableName)
+      this.showSuggestMenu()
     },
     getTableIdByName(name) {
       let id
@@ -542,7 +565,7 @@ export default {
       return id
     },
     // 获取列名列表
-    getCols({ body, leftWord = '' }) {
+    async getCols({ body, leftWord = '' }) {
       const params = { body, sn: 100 }
       params.body.tables = params.body.tables.map(table => {
         return this.getTableIdByName(table)
@@ -564,6 +587,16 @@ export default {
       //     this.showSuggestMenu('local')
       //   }
       // })
+      // [String]
+      if (!_.isEmpty(this.remoteGetColNames)) {
+        const response = await this.remoteGetColNames(params)
+        if (response.length) {
+          this.sqlSuggestColumns = response.map(o => leftWord + o)
+          this.showSuggestMenu(true)
+        } else {
+          this.showSuggestMenu('local')
+        }
+      }
     },
     Hint() {
     }
@@ -581,7 +614,6 @@ export default {
   /deep/ .CodeMirror {
     font-family: Monaco, Consolas, "Andale Mono", "Ubuntu Mono", monospace;
     height: 100%;
-    background: #f9fafc;
 
     &.CodeMirror-fullscreen {
       z-index: 2000;

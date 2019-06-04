@@ -7,6 +7,14 @@
         target="_blank"
       >CodeMirrorr</a>
     </aside>
+    <div class="tips">
+      <pre>
+        1、支持自定义数据源、查询引擎（需后端支持)
+        2、支持异步获取表名、字段名
+        3、暂支持两种主题，xq-light/xq-dark
+        4、支持本地格式化代码
+      </pre>
+    </div>
     <div class="editor-container">
       <el-row :gutter="20">
         <el-col :span="6">
@@ -48,7 +56,7 @@
         <el-col :span="6">
           <el-button-group>
             <el-button type="primary" size="mini" @click="isFullScreenEdit=true">全屏</el-button>
-            <el-button type="primary" size="mini" @click="isFormatSql=true">格式化</el-button>
+            <el-button type="primary" size="mini" @click="handleFormatSql">格式化</el-button>
           </el-button-group>
         </el-col>
       </el-row>
@@ -58,7 +66,6 @@
           class="sql-editor-demo"
           :sql-text.sync="editStatement"
           :full-screen-edit.sync="isFullScreenEdit"
-          :format-sql="isFormatSql"
           :ds-name="editDsName"
           :engine="editEngine"
           :system-vars="systemVars"
@@ -71,7 +78,7 @@
 <script>
 import SqlEditor from '@/components/SqlEditor'
 
-const DATA_SOURCE_LIST = ['数据源1', '数据源2']
+const DATA_SOURCE_LIST = ['ELK']
 const ENGINE_LIST = [
   'oracle',
   'mysql',
@@ -92,11 +99,15 @@ export default {
       ENGINE_LIST,
       editStatement: '',
       isFullScreenEdit: false,
-      isFormatSql: false,
-      editDsName: '数据源1',
+      editDsName: 'ELK',
       editEngine: 0,
       systemVars: [],
       themeKey: 'xq-light'
+    }
+  },
+  methods: {
+    handleFormatSql() {
+      this.code = this.$refs.sqlEditor.formatSqlFun(this.code)
     }
   }
 }
