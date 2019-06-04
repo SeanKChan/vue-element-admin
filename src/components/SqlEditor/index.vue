@@ -10,7 +10,7 @@
 <script>
 import { codemirror, CodeMirror } from 'vue-codemirror'
 import sqlFormatter from './sqlFormatter'
-import _ from 'lodash'
+
 // active-line.js
 import 'codemirror/addon/selection/active-line.js'
 // styleSelectedText
@@ -71,7 +71,7 @@ export default {
       type: Function,
       default: null
     },
-    remoteGetTableNames: {
+    remoteGetTableList: {
       type: Function,
       default: null
     },
@@ -207,16 +207,16 @@ export default {
         return
       }
       try {
-        if (_.isEmpty(this.remoteSqlFormatFunc)) {
-          // 使用本地格式化
-          this.code = sqlFormatter.format(this.code, {
-            language: 'n1ql', // Defaults to "sql"
-            indent: '    ' // Defaults to two spaces
-          })
+        if (typeof this.remoteSqlFormatFunc === 'function') {
+          // 远程格式化
+          this.code = await this.remoteSqlFormatFunc()
           return
         }
-        // 远程格式化
-        this.code = await this.remoteSqlFormatFunc()
+        // 使用本地格式化
+        this.code = sqlFormatter.format(this.code, {
+          language: 'n1ql', // Defaults to "sql"
+          indent: '    ' // Defaults to two spaces
+        })
       } catch (ex) {
         console.error('[sql-editor error]', ex)
       }
@@ -375,7 +375,7 @@ export default {
         list = list.concat(a)
       }
       // 联想列名
-      const sqlSuggestColumns = this.getSuggestListByRequsest(
+      const sqlSuggestColumns = this.getSuggestListByRequest(
         this.sqlSuggestColumns,
         word
       )
@@ -414,7 +414,7 @@ export default {
       const word = token.string.toLowerCase()
       let list = []
 
-      list = this.getSuggestListByRequsest(this.sqlSuggestTableNameLists, word)
+      list = this.getSuggestListByRequest(this.sqlSuggestTableNameLists, word)
       this.hintSort(list, word)
       return {
         list: list,
@@ -512,7 +512,7 @@ export default {
       return listArr
     },
     // 联想表名|列名处理
-    getSuggestListByRequsest(list, word) {
+    getSuggestListByRequest(list, word) {
       // const listArr = []
       // const map = {}
       // for (let i = 0, len = list.length; i < len; i++) {
@@ -547,10 +547,10 @@ export default {
         tableName: String,
         tableId: Number
       }*/
-      if (_.isEmpty(this.remoteGetTableNames)) {
+      if (typeof this.remoteGetTableList !== 'function') {
         return
       }
-      this.sqlSuggestTableLists = await this.remoteGetTableNames(params)
+      this.sqlSuggestTableLists = await this.remoteGetTableList(params)
       this.sqlSuggestTableNameLists = this.sqlSuggestTableLists.map(o => o.tableName)
       this.showSuggestMenu()
     },
@@ -588,7 +588,7 @@ export default {
       //   }
       // })
       // [String]
-      if (!_.isEmpty(this.remoteGetColNames)) {
+      if (typeof this.remoteGetColNames === 'function') {
         const response = await this.remoteGetColNames(params)
         if (response.length) {
           this.sqlSuggestColumns = response.map(o => leftWord + o)
@@ -599,6 +599,10 @@ export default {
       }
     },
     Hint() {
+    },
+    // 获取选中内容
+    getSelectedContent() {
+      return this.editor ? this.editor.getSelection() : ''
     }
   }
 }
