@@ -13,6 +13,7 @@
         2、暂支持两种主题，xq-light/xq-dark
         3、支持本地或远端格式化代码
         4、支持自定义关键字、函数
+        5、支持快捷键，F10：全屏，F9：代码格式化，TAB：代码自动补全
       </pre>
     </div>
     <div class="editor-container">
