@@ -32,6 +32,8 @@ export const KEYWORDS = [
   'ON',
   'UNION',
   'ALL',
+  'LEFT',
+  'INNER',
   'RIGHT',
   'CAST',
   'AS',
