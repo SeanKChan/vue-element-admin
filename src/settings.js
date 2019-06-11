@@ -26,6 +26,12 @@ module.exports = {
   sidebarLogo: true,
 
   /**
+   * @type {boolean} true | false
+   * @description Whether show watermark in sidebar
+   */
+  waterMark: true,
+
+  /**
    * @type {string | array} 'production' | ['production', 'development']
    * @description Need show err logs component.
    * The default is only used in the production env
