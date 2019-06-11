@@ -23,6 +23,11 @@
         <el-switch v-model="sidebarLogo" class="drawer-switch" />
       </div>
 
+      <div class="drawer-item">
+        <span>Open WaterMark</span>
+        <el-switch v-model="waterMark" class="drawer-switch" />
+      </div>
+
     </div>
   </div>
 </template>
@@ -65,6 +70,17 @@ export default {
       set(val) {
         this.$store.dispatch('settings/changeSetting', {
           key: 'sidebarLogo',
+          value: val
+        })
+      }
+    },
+    waterMark: {
+      get() {
+        return this.$store.state.settings.waterMark
+      },
+      set(val) {
+        this.$store.dispatch('settings/changeSetting', {
+          key: 'waterMark',
           value: val
         })
       }

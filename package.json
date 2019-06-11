@@ -13,9 +13,10 @@
     "lint": " eslint --ext .js,.vue src",
     "test:unit": " jest --clearCache && vue-cli-service test:unit",
     "test:ci": "npm run lint && npm run test:unit",
-    "svgo": " svgo -f src/icons/svg --config=src/icons/svgo.yml",
-    "new": " plop",
-    "deploy": "bash deploy.sh"
+    "deploy": "bash deploy.sh",
+    "svgo": "svgo -f src/icons/svg --config=src/icons/svgo.yml",
+    "new": "plop",
+    "version": "conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md"
   },
   "husky": {
     "hooks": {
@@ -45,7 +46,7 @@
     "url": "https://github.com/PanJiaChen/vue-element-admin/issues"
   },
   "dependencies": {
-    "axios": "0.18.0",
+    "axios": "^0.19.0",
     "clipboard": "2.0.4",
     "codemirror": "^5.47.0",
     "driver.js": "0.9.5",
@@ -83,6 +84,7 @@
     "@vue/cli-plugin-unit-jest": "^3.8.0",
     "@vue/cli-service": "3.5.3",
     "@vue/test-utils": "1.0.0-beta.29",
+    "autoprefixer": "^9.5.1",
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "10.0.1",
     "babel-jest": "^24.8.0",
@@ -90,6 +92,7 @@
     "chokidar": "2.1.5",
     "commitizen": "^3.1.1",
     "connect": "3.6.6",
+    "conventional-changelog": "^3.1.8",
     "eslint": "5.15.3",
     "eslint-plugin-vue": "5.2.2",
     "html-webpack-plugin": "3.2.0",
