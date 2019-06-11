@@ -50,14 +50,16 @@
         type="primary"
         icon="el-icon-search"
         @click="handleFilter"
-      >Search</el-button>
+      >Search
+      </el-button>
       <el-button
         class="filter-item"
         style="margin-left: 10px;"
         type="primary"
         icon="el-icon-edit"
         @click="handleCreate"
-      >Add</el-button>
+      >Add
+      </el-button>
       <el-button
         v-waves
         :loading="downloadLoading"
@@ -65,13 +67,15 @@
         type="primary"
         icon="el-icon-download"
         @click="handleDownload"
-      >Export</el-button>
+      >Export
+      </el-button>
       <el-checkbox
         v-model="showReviewer"
         class="filter-item"
         style="margin-left:15px;"
         @change="tableKey=tableKey+1"
-      >reviewer</el-checkbox>
+      >reviewer
+      </el-checkbox>
     </div>
 
     <el-table
@@ -148,18 +152,21 @@
             size="mini"
             type="success"
             @click="handleModifyStatus(row,'published')"
-          >Publish</el-button>
+          >Publish
+          </el-button>
           <el-button
             v-if="row.status!='draft'"
             size="mini"
             @click="handleModifyStatus(row,'draft')"
-          >Draft</el-button>
+          >Draft
+          </el-button>
           <el-button
             v-if="row.status!='deleted'"
             size="mini"
             type="danger"
             @click="handleModifyStatus(row,'deleted')"
-          >Delete</el-button>
+          >Delete
+          </el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -342,6 +349,7 @@ export default {
     async getList() {
       this.listLoading = true
       const response = await fetchList(this.listQuery)
+      this.listLoading = false
       this.list = response.data.items
       this.total = response.data.total
     },
