@@ -1,3 +1,40 @@
+# [4.1.0](https://github.com/PanJiaChen/vue-element-admin/compare/4.2.1...4.1.0) (2019-06-12)
+
+
+### Bug Fixes
+
+* input attribute autocomplete error ([#2191](https://github.com/PanJiaChen/vue-element-admin/issues/2191)) ([4bd8f7f](https://github.com/PanJiaChen/vue-element-admin/commit/4bd8f7f))
+* npx补充 ([a5d0313](https://github.com/PanJiaChen/vue-element-admin/commit/a5d0313))
+
+
+### Features
+
+* devloping sqlEditor ([877e31d](https://github.com/PanJiaChen/vue-element-admin/commit/877e31d))
+* devloping sqlEditor ([f2113ce](https://github.com/PanJiaChen/vue-element-admin/commit/f2113ce))
+* project init ([ece921c](https://github.com/PanJiaChen/vue-element-admin/commit/ece921c))
+* 使用新favicon ([9a913da](https://github.com/PanJiaChen/vue-element-admin/commit/9a913da))
+* **waterMark:** waterMark信息添加到store中 ([8b3e03d](https://github.com/PanJiaChen/vue-element-admin/commit/8b3e03d))
+* SQLEditor主题开发 ([21ae74a](https://github.com/PanJiaChen/vue-element-admin/commit/21ae74a))
+* SQLEditor文档补全 ([2bba069](https://github.com/PanJiaChen/vue-element-admin/commit/2bba069))
+* SQLEditor组件开发完成 ([d08bfcf](https://github.com/PanJiaChen/vue-element-admin/commit/d08bfcf))
+* SQL编辑器支持本地格式化，快捷键 ([125fd7b](https://github.com/PanJiaChen/vue-element-admin/commit/125fd7b))
+* 下掉logo ([ff06050](https://github.com/PanJiaChen/vue-element-admin/commit/ff06050))
+* 支持智能联想 ([a3e0894](https://github.com/PanJiaChen/vue-element-admin/commit/a3e0894))
+* 更换favicon ([a3386b9](https://github.com/PanJiaChen/vue-element-admin/commit/a3386b9))
+* 添加change-log ([638ff05](https://github.com/PanJiaChen/vue-element-admin/commit/638ff05))
+* 添加npmrc ([0019a20](https://github.com/PanJiaChen/vue-element-admin/commit/0019a20))
+* 添加水印组件 ([87dc959](https://github.com/PanJiaChen/vue-element-admin/commit/87dc959))
+* 登录页面添加动效 ([ac8c609](https://github.com/PanJiaChen/vue-element-admin/commit/ac8c609))
+* 视觉调整 ([0ced42e](https://github.com/PanJiaChen/vue-element-admin/commit/0ced42e))
+* 配置信息调整 ([312a63e](https://github.com/PanJiaChen/vue-element-admin/commit/312a63e))
+
+
+### Performance Improvements
+
+* default not set withCredentials ([9538d1b](https://github.com/PanJiaChen/vue-element-admin/commit/9538d1b))
+
+
+
 # [4.1.0](https://github.com/PanJiaChen/vue-element-admin/compare/4.2.1...4.1.0) (2019-06-11)
 
 
