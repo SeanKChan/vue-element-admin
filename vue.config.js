@@ -98,12 +98,11 @@ module.exports = {
       })
       .end()
 
-    config
-      // https://webpack.js.org/configuration/devtool/#development
-      .when(process.env.NODE_ENV === 'development'
-        // FIXME: 开发模式移除
-        // config => config.devtool('cheap-source-map')
-      )
+    // config
+    //   // https://webpack.js.org/configuration/devtool/#development
+    //   .when(process.env.NODE_ENV === 'development',
+    //     config => config.devtool('cheap-source-map')
+    //   )
 
     config
       .when(process.env.NODE_ENV !== 'development',

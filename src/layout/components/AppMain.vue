@@ -30,6 +30,9 @@ export default {
     },
     userName() {
       return this.$store.state.user.name
+    },
+    waterMarkStyle() {
+      return this.$store.state.app.waterMarkStyle
     }
   },
   watch: {
@@ -37,10 +40,14 @@ export default {
       immediate: true,
       handler(val) {
         if (val) {
-          const imgBase64 = WaterMark(this.userName)
-          this.style = {
-            background: `url(${imgBase64})`
+          if (_.isEmpty(this.waterMarkStyle)) {
+            const imgBase64 = WaterMark(this.userName)
+            const style = {
+              background: `url(${imgBase64})`
+            }
+            this.$store.dispatch('app/setWaterMarkStyle', style)
           }
+          this.style = this.waterMarkStyle
         } else {
           this.style = null
         }
