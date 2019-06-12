@@ -59,7 +59,7 @@ export default {
 
 <style lang="scss" scoped>
 .app-main {
-  min-height: 100vh;
+  min-height: calc(100vh - 50px);
   width: 100%;
   position: relative;
   overflow: hidden;
@@ -70,6 +70,10 @@ export default {
 }
 
 .hasTagsView {
+  .app-main {
+    min-height: calc(100vh - 84px);
+  }
+
   .fixed-header + .app-main {
     padding-top: 84px;
   }
