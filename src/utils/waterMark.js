@@ -8,6 +8,7 @@ function mergeOptions(options) {
   }, options)
 }
 
+// TODO: 1、后续支持多文本显示
 export default function(text, options) {
   const canvas = document.createElement('canvas')
   const ctx = canvas.getContext('2d')
