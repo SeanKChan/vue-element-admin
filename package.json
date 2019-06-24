@@ -16,8 +16,7 @@
     "deploy": "bash deploy.sh",
     "svgo": "svgo -f src/icons/svg --config=src/icons/svgo.yml",
     "new": "plop",
-    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md",
-    "task": "node ./tasksfile.js"
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md"
   },
   "husky": {
     "hooks": {
