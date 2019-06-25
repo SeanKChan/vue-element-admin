@@ -18,9 +18,6 @@ import './permission' // permission control
 import './utils/error-log' // error log
 
 import * as filters from './filters' // global filters
-import _ from 'lodash'
-
-window._ = _
 
 /**
  * If you don't want to use mock-server
