@@ -1,5 +1,6 @@
 'use strict'
 const path = require('path')
+const webpack = require('webpack')
 const defaultSettings = require('./src/settings.js')
 
 const resolve = (dir) => path.join(__dirname, dir)
@@ -51,6 +52,11 @@ module.exports = {
     // provide the app's title in webpack's name field, so that
     // it can be accessed in index.html to inject the correct title.
     name: name,
+    entry: {
+      vendor: [
+        'lodash'
+      ]
+    },
     resolve: {
       alias: {
         '@': resolve('src')
@@ -58,7 +64,12 @@ module.exports = {
     },
     module: {
       noParse: /lodash/
-    }
+    },
+    plugins: [
+      new webpack.ProvidePlugin({
+        _: 'lodash'
+      })
+    ]
   },
   chainWebpack(config) {
     const cdn = {
