@@ -18,9 +18,6 @@ import './permission' // permission control
 import './utils/error-log' // error log
 
 import * as filters from './filters' // global filters
-import _ from 'lodash'
-
-window._ = _
 
 /**
  * If you don't want to use mock-server
@@ -48,6 +45,8 @@ Object.keys(filters).forEach(key => {
 window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame || function(callback) {
   setTimeout(callback, 1000 / 60)
 }
+
+window._ = _
 
 Vue.config.productionTip = false
 

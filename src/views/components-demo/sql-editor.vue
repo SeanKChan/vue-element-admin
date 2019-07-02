@@ -11,8 +11,9 @@
       <pre>
         1、支持远端获取表名、字段名
         2、暂支持两种主题，xq-light/xq-dark
-        3、支持本地或远端格式化代码
-        4、支持自定义关键字、系统变量、函数
+        3、格式化代，默认采用sqlFormatJs（支持sql、n1ql、db2、pl/sql四种方言），提供钩子函数，实参为当前输入值
+        4、remoteGetTableList、remoteGetColNames钩子函数，根据关键字获取对应表、字段信息
+        4、支持自定义关键字、函数
         5、支持快捷键，F10：全屏，F9：代码格式化，TAB：代码自动补全
       </pre>
     </div>
@@ -20,11 +21,7 @@
       <el-row :gutter="20">
         <el-col :span="6">
           数据源：
-          <el-select
-            v-model="editDsName"
-            placeholder="选择数据源"
-            size="small"
-          >
+          <el-select v-model="editDsName" placeholder="选择数据源" size="small">
             <el-option
               v-for="(dataSourse, index) in DATA_SOURCE_LIST"
               :key="index"
@@ -35,11 +32,7 @@
         </el-col>
         <el-col :span="6">
           查询引擎：
-          <el-select
-            v-model="editEngine"
-            placeholder="选择查询引擎"
-            size="small"
-          >
+          <el-select v-model="editEngine" placeholder="选择查询引擎" size="small">
             <el-option
               v-for="(engine, index) in ENGINE_LIST"
               :key="index"
@@ -85,14 +78,7 @@ import SqlEditor from '@/components/SqlEditor'
 // 数据源列表
 const DATA_SOURCE_LIST = ['ELK']
 // 搜索引擎列表
-const ENGINE_LIST = [
-  'oracle',
-  'mysql',
-  'hive',
-  'presto',
-  'druid',
-  'gp'
-]
+const ENGINE_LIST = ['oracle', 'mysql', 'hive', 'presto', 'druid', 'gp']
 // 模拟数据
 const tableList = [
   {
@@ -177,5 +163,4 @@ export default {
     height: 540px;
   }
 }
-
 </style>
