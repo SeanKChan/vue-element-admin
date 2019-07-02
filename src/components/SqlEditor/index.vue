@@ -1,10 +1,6 @@
 <template>
   <div class="sql-editor">
-    <codemirror
-      ref="codeEditor"
-      v-model="code"
-      :options="editorOptions"
-    />
+    <codemirror ref="codeEditor" v-model="code" :options="editorOptions" />
   </div>
 </template>
 <script>
@@ -207,9 +203,9 @@ export default {
         return
       }
       try {
-        if (typeof this.remoteSqlFormatFunc === 'function') {
+        if (_.isFunction(this.remoteSqlFormatFunc)) {
           // 远程格式化
-          this.code = await this.remoteSqlFormatFunc()
+          this.code = await this.remoteSqlFormatFunc(this.code)
           return
         }
         // 使用本地格式化
@@ -460,7 +456,7 @@ export default {
       const names = []
       for (let i = 0; i < TABLES_PATTENS.length; i++) {
         const reg = TABLES_PATTENS[i]
-        for (; ;) {
+        for (;;) {
           const found = reg.exec(sql)
           if (!found) {
             break
@@ -547,21 +543,23 @@ export default {
         tableName: String,
         tableId: Number
       }*/
-      if (typeof this.remoteGetTableList !== 'function') {
+      if (_.isFunction(this.remoteGetTableList)) {
         return
       }
       this.sqlSuggestTableLists = await this.remoteGetTableList(params)
-      this.sqlSuggestTableNameLists = this.sqlSuggestTableLists.map(o => o.tableName)
+      this.sqlSuggestTableNameLists = this.sqlSuggestTableLists.map(
+        o => o.tableName
+      )
       this.showSuggestMenu()
     },
     getTableIdByName(name) {
       let id
       this.sqlSuggestTableLists &&
-      this.sqlSuggestTableLists.forEach(table => {
-        if (table.tableName === name) {
-          id = table.tableId
-        }
-      })
+        this.sqlSuggestTableLists.forEach(table => {
+          if (table.tableName === name) {
+            id = table.tableId
+          }
+        })
       return id
     },
     // 获取列名列表
@@ -588,7 +586,7 @@ export default {
       //   }
       // })
       // [String]
-      if (typeof this.remoteGetColNames === 'function') {
+      if (_.isFunction(this.remoteGetColNames)) {
         const response = await this.remoteGetColNames(params)
         if (response.length) {
           this.sqlSuggestColumns = response.map(o => leftWord + o)
@@ -598,8 +596,7 @@ export default {
         }
       }
     },
-    Hint() {
-    },
+    Hint() {},
     // 获取选中内容
     getSelectedContent() {
       return this.editor ? this.editor.getSelection() : ''
