@@ -46,6 +46,8 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
   setTimeout(callback, 1000 / 60)
 }
 
+window._ = _
+
 Vue.config.productionTip = false
 
 new Vue({
