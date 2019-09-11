@@ -19,6 +19,8 @@ import './utils/error-log' // error log
 
 import * as filters from './filters' // global filters
 
+import browser from '@/utils/browser'
+
 /**
  * If you don't want to use mock-server
  * you want to use MockJs for mock api
@@ -47,6 +49,8 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 }
 
 window._ = _
+
+window.browser = browser
 
 Vue.config.productionTip = false
 
