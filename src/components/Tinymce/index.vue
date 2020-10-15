@@ -133,7 +133,11 @@ export default {
           editor.on('FullscreenStateChanged', (e) => {
             _this.fullscreen = e.state
           })
-        }
+        },
+        // it will try to keep these URLs intact
+        // https://www.tiny.cloud/docs-3x/reference/configuration/Configuration3x@convert_urls/
+        // https://stackoverflow.com/questions/5196205/disable-tinymce-absolute-to-relative-url-conversions
+        convert_urls: false
         // 整合七牛上传
         // images_dataimg_filter(img) {
         //   setTimeout(() => {
@@ -186,10 +190,7 @@ export default {
       window.tinymce.get(this.tinymceId).getContent()
     },
     imageSuccessCBK(arr) {
-      const _this = this
-      arr.forEach(v => {
-        window.tinymce.get(_this.tinymceId).insertContent(`<img class="wscnph" src="${v.url}" >`)
-      })
+      arr.forEach(v => window.tinymce.get(this.tinymceId).insertContent(`<img class="wscnph" src="${v.url}" >`))
     }
   }
 }
@@ -199,9 +200,13 @@ export default {
 .tinymce-container {
   position: relative;
   line-height: normal;
+}
 
-  /deep/ .mce-fullscreen {
-    z-index: 10000;
+.tinymce-container {
+  ::v-deep {
+    .mce-fullscreen {
+      z-index: 10000;
+    }
   }
 }
 
