@@ -612,7 +612,7 @@ export default {
   border-radius: 1px;
   margin-right: 20px;
 
-  /deep/ .CodeMirror {
+  ::v-deep .CodeMirror {
     font-family: Monaco, Consolas, "Andale Mono", "Ubuntu Mono", monospace;
     height: 100%;
 
