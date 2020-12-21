@@ -1,4 +1,3 @@
-
 const tokens = {
   admin: {
     token: 'admin-token'
@@ -74,10 +73,45 @@ module.exports = [
   {
     url: '/vue-element-admin/user/logout',
     type: 'post',
-    response: _ => {
+    response: () => {
       return {
         code: 20000,
         data: 'success'
+      }
+    }
+  },
+  {
+    url: '/vue-element-admin/user/role',
+    type: 'get',
+    response: () => {
+      return {
+        code: 20000,
+        data: [
+          {
+            orgName: '郑州分行',
+            orgId: '001',
+            roleName: '分行综合员',
+            roleId: '30001'
+          },
+          {
+            orgName: '开封分行',
+            orgId: '002',
+            roleName: '分行综合员',
+            roleId: '30002'
+          },
+          {
+            orgName: '总行',
+            orgId: '003',
+            roleName: '交易银行部产品经理',
+            roleId: '30003'
+          },
+          {
+            orgName: '总行',
+            orgId: '003',
+            roleName: '超级管理',
+            roleId: 'admin'
+          }
+        ]
       }
     }
   }

@@ -11,7 +11,7 @@
 
     <div class="right-menu">
       <template v-if="device!=='mobile'">
-        <helper-guid :docs="docs" class="right-menu-item" />
+        <role-guid class="right-menu-item" />
 
         <search id="header-search" class="right-menu-item" />
 
@@ -59,7 +59,7 @@ import ErrorLog from '@/components/ErrorLog'
 import Screenfull from '@/components/Screenfull'
 import SizeSelect from '@/components/SizeSelect'
 import Search from '@/components/HeaderSearch'
-import HelperGuid from '@/components/HelperGuid'
+import RoleGuid from '@/components/RoleGuid'
 
 export default {
   components: {
@@ -69,17 +69,7 @@ export default {
     Screenfull,
     SizeSelect,
     Search,
-    HelperGuid
-  },
-  data() {
-    return {
-      docs: [
-        {
-          docName: '大数据浪潮下的数据仓库',
-          docLink: process.env.BASE_URL + '/assets/大数据浪潮下的数据仓库.pdf'
-        }
-      ]
-    }
+    RoleGuid
   },
   computed: {
     ...mapGetters(['sidebar', 'avatar', 'device'])

@@ -30,7 +30,7 @@ const mutations = {
 
 const actions = {
   // user login
-  login({ commit }, userInfo) {
+  async login({ commit }, userInfo) {
     const { username, password } = userInfo
     return new Promise((resolve, reject) => {
       login({ username: username.trim(), password: password }).then(response => {
@@ -121,6 +121,7 @@ const actions = {
     // reset visited views and cached views
     dispatch('tagsView/delAllViews', null, { root: true })
   }
+
 }
 
 export default {
