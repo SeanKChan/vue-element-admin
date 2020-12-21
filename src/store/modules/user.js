@@ -1,4 +1,4 @@
-import { login, logout, getInfo } from '@/api/user'
+import { login, logout, getInfo, getRole } from '@/api/user'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 import router, { resetRouter } from '@/router'
 
@@ -120,6 +120,18 @@ const actions = {
 
     // reset visited views and cached views
     dispatch('tagsView/delAllViews', null, { root: true })
+  },
+
+  async getRoles({ commit }) {
+    const { data } = await getRole()
+    const roles = data.map((o, i) => {
+      return {
+        ...o,
+        checked: i === 0
+      }
+    })
+
+    commit('SET_ROLES', roles)
   }
 
 }
