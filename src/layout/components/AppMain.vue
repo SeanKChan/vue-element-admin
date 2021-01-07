@@ -58,24 +58,27 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+$navBarHeight: 50px;
+$fixedHeaderHeight: 34px;
+
 .app-main {
-  min-height: calc(100vh - 50px);
+  min-height: calc(100vh - #{$navBarHeight});
   width: 100%;
   position: relative;
   overflow: hidden;
 }
 
 .fixed-header + .app-main {
-  padding-top: 50px;
+  padding-top: #{$navBarHeight};
 }
 
 .hasTagsView {
   .app-main {
-    min-height: calc(100vh - 84px);
+    min-height: calc(100vh - #{$navBarHeight + $fixedHeaderHeight});
   }
 
   .fixed-header + .app-main {
-    padding-top: 84px;
+    padding-top: #{$navBarHeight + $fixedHeaderHeight};
   }
 }
 </style>

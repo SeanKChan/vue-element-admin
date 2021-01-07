@@ -29,7 +29,7 @@ module.exports = {
    * @type {boolean} true | false
    * @description Whether show watermark in sidebar
    */
-  waterMark: true,
+  waterMark: false,
 
   /**
    * @type {string | array} 'production' | ['production', 'development']

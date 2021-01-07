@@ -8,7 +8,7 @@
 export default {
   name: 'App',
   mounted() {
-    console.log(_.flatMap([1, 2, [3, 4]]))
+    console.log('lodash version: ', _.VERSION)
   }
 }
 </script>

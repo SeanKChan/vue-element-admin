@@ -11,7 +11,6 @@
 
     <div class="right-menu">
       <template v-if="device!=='mobile'">
-        <helper-guid :docs="docs" class="right-menu-item" />
 
         <search id="header-search" class="right-menu-item" />
 
@@ -59,7 +58,6 @@ import ErrorLog from '@/components/ErrorLog'
 import Screenfull from '@/components/Screenfull'
 import SizeSelect from '@/components/SizeSelect'
 import Search from '@/components/HeaderSearch'
-import HelperGuid from '@/components/HelperGuid'
 
 export default {
   components: {
@@ -68,8 +66,7 @@ export default {
     ErrorLog,
     Screenfull,
     SizeSelect,
-    Search,
-    HelperGuid
+    Search
   },
   data() {
     return {

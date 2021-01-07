@@ -101,6 +101,12 @@ const componentsRouter = {
       component: () => import('@/views/components-demo/drag-kanban'),
       name: 'DragKanbanDemo',
       meta: { title: 'Drag Kanban' }
+    },
+    {
+      path: 'vue-tagify',
+      component: () => import('@/views/components-demo/vue-tagify'),
+      name: 'VueTagifyDemo',
+      meta: { title: 'Vue Tagify' }
     }
   ]
 }
