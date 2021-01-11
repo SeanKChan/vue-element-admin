@@ -3,7 +3,12 @@
     <div class="tag-group">
       <el-tag v-for="tag in tags" :key="tag" effect="plain" :color="getRandomColor()">{{ tag }}</el-tag>
     </div>
-    <textarea v-model="content" name="mix" />
+    <textarea name="mix" />
+    <pre>{{ originalInputValue }}</pre>
+    <div>
+      <el-button size="mini">transform</el-button>
+      <pre>{{ transformInputValue }}</pre>
+    </div>
   </div>
 </template>
 <script>
@@ -17,6 +22,8 @@ export default {
     return {
       instance: null,
       content: '[[行内客户号]] 你好',
+      originalInputValue: '',
+      transformInputValue: '',
       tags: VARIABLE
     }
   },
@@ -36,11 +43,11 @@ export default {
           value: o
         }
       }),
-      transformTag: this.transformTag,
+      // transformTag: this.transformTag,
       dropdown: {
         enabled: 1,
         position: 'text', // <-- render the suggestions list next to the typed text ("caret")
-        mapValueTo: 'text', // <-- similar to above "tagTextProp" setting, but for the dropdown items
+        mapValueTo: 'value', // <-- similar to above "tagTextProp" setting, but for the dropdown items
         highlightFirst: true // automatically highlights first sugegstion item in the dropdown
       },
       callbacks: {
@@ -49,25 +56,29 @@ export default {
       }
     })
 
+    this.instance.loadOriginalValues(this.content)
+    this.originalInputValue = this.content
+
     // A good place to pull server suggestion list accoring to the prefix/value
     this.instance.on('input', (e) => {
-      const { prefix, value } = e.detail
+      const { prefix, value, tagify } = e.detail
       if (prefix === '@') {
         if (value.length >= 1) {
-          this.instance.dropdown.show.call(this.instance, e.detail.value)
+          this.instance.dropdown.show.call(this.instance, value)
         }
       }
       console.log('mix-mode "input" event value: ', e.detail)
+      this.originalInputValue = tagify.DOM.originalInput.value
     }
     )
       .on('change', (e) => {
-        console.log('change', e)
+        // console.log('change', e)
       })
       .on('add', function(e) {
-        console.log('add', e)
+        // console.log('add', e)
       })
       .on('dropdown:show', (e) => {
-        console.log('dropdown:show', e)
+        // console.log('dropdown:show', e)
       })
   },
   methods: {
@@ -86,6 +97,9 @@ export default {
       if (tagData.value.toLowerCase() === 'shit') {
         tagData.value = 's✲✲t'
       }
+    },
+    transfromOriginalValue() {
+
     }
   }
 }
