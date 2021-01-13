@@ -1,5 +1,5 @@
 <template>
-  <textarea name="mix" rows="3" cols="40" />
+  <textarea name="mix" rows="3" cols="40"/>
 </template>
 <script>
 import Tagify from '@yaireo/tagify/dist/tagify.min.js'
@@ -62,6 +62,10 @@ export default {
         }
         this.$emit('tagify:input', textContent)
       })
+        .on('change', e => {
+          // FIXME 标签输入完成后，无法触发input事件
+          this.$emit('tagify:input', e.detail.value)
+        })
     },
     transformWhiteList(arr) {
       return arr.map(o => {
