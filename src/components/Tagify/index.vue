@@ -8,7 +8,7 @@ export default {
   name: 'Tagify',
   model: {
     prop: 'output',
-    event: 'change'
+    event: 'tagify:input'
   },
   props: {
     input: String,
@@ -48,6 +48,7 @@ export default {
       this.instance.loadOriginalValues(this.input)
       // 3. 绑定事件
       this.instance.on('input', e => {
+        console.log('input', e.detail)
         /**
          * prefix 前缀
          * value 前缀后的值
@@ -55,9 +56,11 @@ export default {
          */
         const { prefix, value, textContent } = e.detail
         if (prefix === '@') {
-          this.instance.dropdown.show.call(this.instance, value)
+          if (value.length > 0) {
+            this.instance.dropdown.show.call(this.instance, value)
+          }
         }
-        this.$emit('change', textContent)
+        this.$emit('tagify:input', textContent)
       })
     },
     transformWhiteList(arr) {
@@ -83,7 +86,7 @@ export default {
           return m
         })
       })
-      tmp = tmp.replace(/\s*/, '')
+      tmp = tmp.replace(/\s/g, '')
       return tmp
     }
   }
