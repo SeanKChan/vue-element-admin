@@ -7,7 +7,7 @@ import Tagify from '@yaireo/tagify/dist/tagify.min.js'
 export default {
   name: 'Tagify',
   model: {
-    prop: 'output',
+    prop: 'input',
     event: 'tagify:input'
   },
   props: {
@@ -15,12 +15,12 @@ export default {
     whiteList: {
       type: Array,
       required: true
-    },
-    output: String
+    }
   },
   data() {
     return {
-      content: '',
+      // tagify输出的值，包括tagData.value + text
+      output: '',
       instance: null
     }
   },
@@ -48,23 +48,24 @@ export default {
       this.instance.loadOriginalValues(this.input)
       // 3. 绑定事件
       this.instance.on('input', e => {
-        console.log('input', e.detail)
         /**
          * prefix 前缀
          * value 前缀后的值
          * textContent 输出值
          */
-        const { prefix, value, textContent } = e.detail
+        const { prefix, value } = e.detail
         if (prefix === '@') {
           if (value.length > 0) {
             this.instance.dropdown.show.call(this.instance, value)
           }
         }
-        this.$emit('tagify:input', textContent)
+        this.$emit('tagify:input', this.getOriginalInputValue())
+        this.output = this.getOutput()
       })
         .on('change', e => {
-          // FIXME 标签输入完成后，无法触发input事件
-          this.$emit('tagify:input', e.detail.value)
+          // FIXME input事件无法监听标签变化，导致无法同步到value
+          this.$emit('tagify:input', this.getOriginalInputValue())
+          this.output = this.getOutput()
         })
     },
     transformWhiteList(arr) {
@@ -76,6 +77,9 @@ export default {
         }
         return o
       })
+    },
+    getOutput() {
+      return this.instance.DOM.input.innerText.replace(/\s/g, '')
     },
     getOriginalInputValue() {
       let tmp = this.instance.DOM.originalInput.value

@@ -3,8 +3,7 @@
     <div class="tag-group">
       <el-tag v-for="tag in whiteList" :key="tag" effect="plain" :color="getRandomColor()">{{ tag }}</el-tag>
     </div>
-    <Tagify ref="tagify" v-model="output" :white-list="whiteList" :input="content" />
-    <pre>组件输入值：{{ output }}</pre>
+    <Tagify ref="tagify" v-model="content" :white-list="whiteList" />
     <pre>组件模板值: {{ outputTmp }}</pre>
   </div>
 </template>
@@ -19,14 +18,7 @@ export default {
   data() {
     return {
       content: '[[行内客户号]] 你好',
-      whiteList: ['行内客户号', '客户姓名', '交易对手名称', '上游交易数据'],
-      output: '',
-      outputTmp: ''
-    }
-  },
-  watch: {
-    output() {
-      this.outputTmp = this.$refs['tagify'].getOriginalInputValue()
+      whiteList: ['行内客户号', '客户姓名', '交易对手名称', '上游交易数据']
     }
   },
   methods: {
