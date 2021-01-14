@@ -1,11 +1,11 @@
 <template>
-  <textarea name="mix" rows="3" cols="40"/>
+  <textarea name="mix" rows="3" cols="40" />
 </template>
 <script>
 import Tagify from '@yaireo/tagify/dist/tagify.min.js'
 
 export default {
-  name: 'Tagify',
+  name: 'TagifyInput',
   model: {
     prop: 'input',
     event: 'tagify:input'
@@ -15,6 +15,10 @@ export default {
     whiteList: {
       type: Array,
       required: true
+    },
+    readOnly: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -22,6 +26,14 @@ export default {
       // tagify输出的值，包括tagData.value + text
       output: '',
       instance: null
+    }
+  },
+  watch: {
+    output(val) {
+      this.$emit('change', val)
+    },
+    readOnly(val) {
+      this.instance.setReadonly(val)
     }
   },
   mounted() {
@@ -47,26 +59,28 @@ export default {
       // 2. 加载输入模板
       this.instance.loadOriginalValues(this.input)
       // 3. 绑定事件
-      this.instance.on('input', e => {
-        /**
+      this.instance.on('input', this.onInput)
+        .on('change', this.onChange)
+    },
+    onInput(e) {
+      /**
          * prefix 前缀
          * value 前缀后的值
          * textContent 输出值
          */
-        const { prefix, value } = e.detail
-        if (prefix === '@') {
-          if (value.length > 0) {
-            this.instance.dropdown.show.call(this.instance, value)
-          }
+      const { prefix, value } = e.detail
+      if (prefix === '@') {
+        if (value.length > 0) {
+          this.instance.dropdown.show.call(this.instance, value)
         }
-        this.$emit('tagify:input', this.getOriginalInputValue())
-        this.output = this.getOutput()
-      })
-        .on('change', e => {
-          // FIXME input事件无法监听标签变化，导致无法同步到value
-          this.$emit('tagify:input', this.getOriginalInputValue())
-          this.output = this.getOutput()
-        })
+      }
+      this.$emit('tagify:input', this.getOriginalInputValue())
+      this.output = this.getOutput()
+    },
+    onChange(e) {
+      // FIXME input事件无法监听标签变化，导致无法同步到value
+      this.$emit('tagify:input', this.getOriginalInputValue())
+      this.output = this.getOutput()
     },
     transformWhiteList(arr) {
       return arr.map(o => {

@@ -3,22 +3,38 @@
     <div class="tag-group">
       <el-tag v-for="tag in whiteList" :key="tag" effect="plain" :color="getRandomColor()">{{ tag }}</el-tag>
     </div>
-    <Tagify ref="tagify" v-model="content" :white-list="whiteList" />
-    <pre>组件模板值: {{ outputTmp }}</pre>
+    <div>
+      <el-switch
+        v-model="isReadOnly"
+        active-text="只读"
+        inactive-text="可编辑"
+      />
+    </div>
+    <TagifyInput
+      ref="tagify"
+      v-model="content"
+      :white-list="whiteList"
+      :read-only="isReadOnly"
+      @change="onChange"
+    />
+    <pre>组件模板值: {{ content }}</pre>
+    <pre>组件输出值: {{ output }}</pre>
   </div>
 </template>
 <script>
-import Tagify from '@/components/Tagify'
+import TagifyInput from '@/components/TagifyInput'
 
 export default {
-  name: 'VueTagifyDemo',
+  name: 'TagifyDemo',
   components: {
-    Tagify
+    TagifyInput
   },
   data() {
     return {
       content: '[[行内客户号]] 你好',
-      whiteList: ['行内客户号', '客户姓名', '交易对手名称', '上游交易数据']
+      whiteList: ['行内客户号', '客户姓名', '交易对手名称', '上游交易数据'],
+      output: '',
+      isReadOnly: false
     }
   },
   methods: {
@@ -37,6 +53,9 @@ export default {
       // if (tagData.value.toLowerCase() === '行内客户号') {
       //   tagData.value = '行内客户号✲*'
       // }
+    },
+    onChange(output) {
+      this.output = output
     }
   }
 }
