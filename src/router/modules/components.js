@@ -103,10 +103,10 @@ const componentsRouter = {
       meta: { title: 'Drag Kanban' }
     },
     {
-      path: 'tagify-demo',
-      component: () => import('@/views/components-demo/tagify-demo'),
-      name: 'TagifyDemo',
-      meta: { title: 'Tagify Demo' }
+      path: 'mix-input',
+      component: () => import('@/views/components-demo/mix-input'),
+      name: 'MixInputDemo',
+      meta: { title: 'Mix Input Demo' }
     }
   ]
 }

@@ -260,7 +260,7 @@ $light_gray: #eee;
   &--logo {
     width: 172px;
     height: 40px;
-    background: url("~@/assets/logo_images/logo_white.png") no-repeat;
+    background: url("~@/assets/images/logo_white.png") no-repeat;
     background-size: 172px 40px;
     position: absolute;
     top: 38px;

@@ -1,7 +1,7 @@
 <template>
   <div class="components-container">
     <div class="tag-group">
-      <el-tag v-for="tag in whiteList" :key="tag" effect="plain" :color="getRandomColor()">{{ tag }}</el-tag>
+      <el-tag v-for="tag in whiteList" :key="tag" effect="plain">{{ tag }}</el-tag>
     </div>
     <div>
       <el-switch
@@ -50,9 +50,6 @@ export default {
     },
     transformTag(tagData) {
       tagData.style = '--tag-bg:' + this.getRandomColor()
-      // if (tagData.value.toLowerCase() === '行内客户号') {
-      //   tagData.value = '行内客户号✲*'
-      // }
     },
     onChange(output) {
       this.output = output
@@ -74,7 +71,6 @@ export default {
   align-items: center;
 
   .el-tag {
-    color: #fff;
     margin-left: 15px;
   }
 }
