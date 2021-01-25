@@ -45,6 +45,7 @@
     "url": "https://github.com/PanJiaChen/vue-element-admin/issues"
   },
   "dependencies": {
+    "@antv/g2plot": "^2.3.9",
     "@yaireo/tagify": "^3.22.0",
     "axios": "^0.19.1",
     "clipboard": "2.0.4",
@@ -56,6 +57,7 @@
     "element-ui": "2.14.1",
     "file-saver": "2.0.1",
     "fuse.js": "3.4.4",
+    "insert-css": "^2.0.0",
     "js-cookie": "2.2.0",
     "jsonlint": "1.6.3",
     "jszip": "3.2.1",
