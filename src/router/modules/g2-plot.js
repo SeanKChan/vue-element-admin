@@ -6,7 +6,7 @@ const g2PlotRouter = {
   redirect: '/g2-plot/funnel',
   alwaysShow: true,
   meta: {
-    title: 'g2 plot',
+    title: 'G2 plot',
     icon: 'el-icon-s-data'
   },
   children: [
