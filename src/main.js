@@ -20,6 +20,8 @@ import './utils/error-log' // error log
 
 import * as filters from './filters' // global filters
 
+import * as qs from 'qs'
+
 import browser from '@/utils/browser'
 
 /**
@@ -52,6 +54,8 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequ
 window._ = _
 
 window.browser = browser
+
+window.qs = qs
 
 Vue.config.productionTip = false
 
