@@ -58,8 +58,8 @@
       <el-row>
         <sql-editor
           ref="sqlEditor"
+          v-model="sqlText"
           class="sql-editor-demo"
-          :sql-text.sync="editStatement"
           :full-screen-edit.sync="isFullScreenEdit"
           :ds-name="editDsName"
           :engine="editEngine"
@@ -105,12 +105,12 @@ export default {
     return {
       DATA_SOURCE_LIST,
       ENGINE_LIST,
-      editStatement: '',
       isFullScreenEdit: false,
       editDsName: 'ELK',
       editEngine: 0,
       systemVars: [],
-      themeKey: 'xq-light'
+      themeKey: 'xq-light',
+      sqlText: ''
     }
   },
   methods: {

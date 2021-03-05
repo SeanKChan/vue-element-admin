@@ -53,6 +53,10 @@ export default {
   components: {
     codemirror
   },
+  model: {
+    prop: 'sqlText',
+    event: 'update:sqlText'
+  },
   props: {
     sqlText: String,
     themeKey: {
