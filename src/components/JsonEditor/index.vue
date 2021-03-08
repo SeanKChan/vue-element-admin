@@ -16,11 +16,14 @@ import 'codemirror/addon/lint/json-lint'
 
 export default {
   name: 'JsonEditor',
-  /* eslint-disable vue/require-prop-types */
+  model: {
+    prop: 'value',
+    event: 'update:value'
+  },
   props: ['value'],
   data() {
     return {
-      jsonEditor: false
+      jsonEditor: null
     }
   },
   watch: {
@@ -42,8 +45,7 @@ export default {
 
     this.jsonEditor.setValue(JSON.stringify(this.value, null, 2))
     this.jsonEditor.on('change', cm => {
-      this.$emit('changed', cm.getValue())
-      this.$emit('input', cm.getValue())
+      this.$emit('update:value', cm.getValue())
     })
   },
   methods: {
