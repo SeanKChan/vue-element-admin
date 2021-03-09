@@ -20,6 +20,7 @@ export default {
     prop: 'value',
     event: 'update:value'
   },
+  // eslint-disable-next-line vue/require-prop-types
   props: ['value'],
   data() {
     return {
