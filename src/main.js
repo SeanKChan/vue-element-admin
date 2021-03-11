@@ -24,6 +24,8 @@ import * as qs from 'qs'
 
 import browser from '@/utils/browser'
 
+import { isInIcestark } from '@ice/stark-app'
+
 /**
  * If you don't want to use mock-server
  * you want to use MockJs for mock api
@@ -58,6 +60,34 @@ window.browser = browser
 window.qs = qs
 
 Vue.config.productionTip = false
+
+let vue
+
+export function mount(props) {
+  const { container } = props
+  vue = new Vue({
+    el: '#app',
+    router,
+    store,
+    render: h => h(App)
+  }).$mount()
+  // for vue don't replace mountNode
+  container.innerHTML = ''
+  container.appendChild(vue.$el)
+}
+
+export function unmount() {
+  vue && vue.$destroy()
+}
+
+if (!isInIcestark()) {
+  new Vue({
+    el: '#app',
+    router,
+    store,
+    render: h => h(App)
+  })
+}
 
 new Vue({
   el: '#app',
