@@ -7,6 +7,9 @@ const resolve = (dir) => path.join(__dirname, dir)
 
 const name = defaultSettings.title || 'vue Element Admin' // page title
 
+const { name: bundleName } = require('./package')
+
+
 // If your port is set to 80,
 // use administrator privileges to execute the command line.
 // For example, Mac: sudo npm run
@@ -23,12 +26,16 @@ module.exports = {
    * In most cases please use '/' !!!
    * Detail: https://cli.vuejs.org/config/#publicpath
    */
-  publicPath: '/',
+  publicPath: process.env.DOMAIN || '/',
   outputDir: 'dist',
   assetsDir: 'static',
   lintOnSave: process.env.NODE_ENV === 'development',
   productionSourceMap: false,
   devServer: {
+    disableHostCheck: true,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+    },
     port: port,
     open: true,
     overlay: {
@@ -61,6 +68,11 @@ module.exports = {
     ]
   },
   chainWebpack(config) {
+
+    config.output.library(`${bundleName}-[name]`)
+      .libraryTarget('umd')
+      .jsonpFunction(`webpackJsonp_${bundleName}`)
+
     // it can improve the speed of the first screen, it is recommended to turn on preload
     // it can improve the speed of the first screen, it is recommended to turn on preload
     config.plugin('preload').tap(() => [
@@ -141,6 +153,7 @@ module.exports = {
             })
           // https:// webpack.js.org/configuration/optimization/#optimizationruntimechunk
           config.optimization.runtimeChunk('single')
+
         }
       )
   }

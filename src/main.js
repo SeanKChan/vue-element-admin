@@ -1,3 +1,5 @@
+import './public-path'
+
 import Vue from 'vue'
 
 import Cookies from 'js-cookie'
@@ -23,8 +25,6 @@ import * as filters from './filters' // global filters
 import * as qs from 'qs'
 
 import browser from '@/utils/browser'
-
-import { isInIcestark } from '@ice/stark-app'
 
 /**
  * If you don't want to use mock-server
@@ -61,37 +61,50 @@ window.qs = qs
 
 Vue.config.productionTip = false
 
-let vue
+let instance = null
+let routerInstance = null
 
-export function mount(props) {
+function render(props = {}) {
   const { container } = props
-  vue = new Vue({
-    el: '#app',
-    router,
+  routerInstance = router
+  instance = new Vue({
+    router: routerInstance,
     store,
     render: h => h(App)
-  }).$mount()
-  // for vue don't replace mountNode
-  container.innerHTML = ''
-  container.appendChild(vue.$el)
+  }).$mount(container ? container.querySelector('#app') : '#app')
 }
 
-export function unmount() {
-  vue && vue.$destroy()
+// 独立运行时
+if (!window.__POWERED_BY_QIANKUN__) {
+  render()
 }
 
-if (!isInIcestark()) {
-  new Vue({
-    el: '#app',
-    router,
-    store,
-    render: h => h(App)
-  })
+function storeTest(props) {
+  props.onGlobalStateChange &&
+    props.onGlobalStateChange(
+      (value, prev) => console.log(`[onGlobalStateChange - ${props.name}]:`, value, prev),
+      true
+    )
+  props.setGlobalState &&
+    props.setGlobalState({
+      ignore: props.name,
+      user: {
+        name: props.name
+      }
+    })
 }
 
-new Vue({
-  el: '#app',
-  router,
-  store,
-  render: h => h(App)
-})
+export async function bootstrap() {
+  console.log('[vue] vue app bootstraped')
+}
+export async function mount(props) {
+  console.log('[vue] props from main framework', props)
+  storeTest(props)
+  render(props)
+}
+export async function unmount() {
+  instance.$destroy()
+  instance.$el.innerHTML = ''
+  instance = null
+  routerInstance = null
+}

@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import { getBasename } from '@ice/stark-app'
 
 Vue.use(Router)
 
@@ -390,11 +389,9 @@ export const asyncRoutes = [
   { path: '*', redirect: '/404', hidden: true }
 ]
 
-console.info('getBasename', getBasename)
-
 const createRouter = () => new Router({
+  base: window.__POWERED_BY_QIANKUN__ ? '/vue-admin/' : '/',
   mode: 'history', // require service support
-  base: getBasename(),
   scrollBehavior: () => ({ y: 0 }),
   routes: constantRoutes
 })
@@ -408,3 +405,4 @@ export function resetRouter() {
 }
 
 export default router
+
