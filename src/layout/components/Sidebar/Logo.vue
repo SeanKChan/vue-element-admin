@@ -46,7 +46,7 @@ export default {
   width: 100%;
   height: 50px;
   line-height: 50px;
-  background: #02213e;
+  background: rgb(48, 65, 86);
   text-align: center;
   overflow: hidden;
 
@@ -55,8 +55,8 @@ export default {
     width: 100%;
 
     & .sidebar-logo {
-      color: white;
-      font-size: 32px;
+      width: 32px;
+      height: 32px;
       vertical-align: middle;
       margin-right: 12px;
     }
