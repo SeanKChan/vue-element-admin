@@ -220,6 +220,12 @@ export const asyncRoutes = [
         component: () => import('@/views/example/list'),
         name: 'ArticleList',
         meta: { title: 'Article List', icon: 'list' }
+      },
+      {
+        path: 'draggable',
+        component: () => import('@/views/example/draggable'),
+        name: 'Draggable',
+        meta: { title: 'Vue Draggable', icon: 'drag' }
       }
     ]
   },
