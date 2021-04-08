@@ -15,7 +15,7 @@ import g2PlotRouter from './modules/g2-plot'
 
 /**
  * Note: sub-menu only appear when route children.length >= 1
- * Detail see: https://panjiachen.github.io/vue-element-admin-site/guide/essentials/router-and-nav.html
+ * Detail see: https://panjiachen.github.io/vue-element-admin-site/guide/ssentials/router-and-nav.html
  *
  * hidden: true                   if set true, item will not show in the sidebar(default is false)
  * alwaysShow: true               if set true, will always show the root menu
@@ -69,6 +69,12 @@ export const constantRoutes = [
   {
     path: '/401',
     component: () => import('@/views/error-page/401'),
+    hidden: true
+  },
+  {
+    path: '/mix-chart-comp',
+    component: () => import('@/views/charts/mix-chart'),
+    name: 'MixChartComp',
     hidden: true
   },
   {
@@ -390,7 +396,7 @@ export const asyncRoutes = [
 ]
 
 const createRouter = () => new Router({
-  base: window.__POWERED_BY_QIANKUN__ ? '/vue-admin/' : '/',
+  base: window.__POWERED_BY_QIANKUN__ ? '/app/vue-admin/' : '/',
   mode: 'history', // require service support
   scrollBehavior: () => ({ y: 0 }),
   routes: constantRoutes
