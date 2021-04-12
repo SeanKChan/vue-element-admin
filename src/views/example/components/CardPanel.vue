@@ -1,13 +1,13 @@
 <template>
   <div class="card-panel">
     <div class="card-panel-icon-wrapper icon-message">
-      <svg-icon icon-class="message" class-name="card-panel-icon"/>
+      <svg-icon icon-class="message" class-name="card-panel-icon" />
     </div>
     <div class="card-panel-description">
       <div class="card-panel-text">
         {{ message }}
       </div>
-      <count-to :start-val="0" :end-val="81212" :duration="3000" class="card-panel-num"/>
+      <count-to :start-val="0" :end-val="81212" :duration="3000" class="card-panel-num" />
     </div>
   </div>
 </template>

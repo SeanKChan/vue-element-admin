@@ -12,7 +12,7 @@
         draggable=".card-panel-col"
         :group="{ name: 'row' }"
         class="row wrap justify-space-around"
-        :onEnd="onEnd"
+        :on-end="onEnd"
       >
         <el-col v-for="(item, idx) in row.items" :key="idx" :xs="12" :sm="12" :lg="6" class="card-panel-col">
           <CardPanel :message="item.message" />
