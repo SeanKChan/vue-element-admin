@@ -1,7 +1,7 @@
 <template>
   <section class="app-main" :style="style">
     <transition name="fade-transform" mode="out-in">
-      <keep-alive :include="cachedViews">
+      <keep-alive ref="keepAlive" :include="cachedViews">
         <router-view :key="key" />
       </keep-alive>
     </transition>
@@ -20,7 +20,8 @@ export default {
   },
   computed: {
     cachedViews() {
-      return this.$store.state.tagsView.cachedViews
+      const arr = this.$store.state.tagsView.cachedViews
+      return new RegExp(arr.join('|'), 'i')
     },
     key() {
       return this.$route.path
@@ -53,6 +54,9 @@ export default {
         }
       }
     }
+  },
+  mounted() {
+    console.log(this.$refs.keepAlive)
   }
 }
 </script>
