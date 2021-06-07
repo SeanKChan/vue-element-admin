@@ -343,17 +343,16 @@ export const asyncRoutes = [
       {
         path: 'index',
         component: () => import('@/views/pdf/index'),
-        name: 'PDF',
+        name: 'PdfIndex',
         meta: { title: 'PDF', icon: 'pdf' }
+      },
+      {
+        path: 'download',
+        component: () => import('@/views/pdf/download'),
+        hidden: true
       }
     ]
   },
-  {
-    path: '/pdf/download',
-    component: () => import('@/views/pdf/download'),
-    hidden: true
-  },
-
   {
     path: '/theme',
     component: Layout,

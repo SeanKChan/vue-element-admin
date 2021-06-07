@@ -2,10 +2,11 @@
   <div class="wscn-http404-container">
     <div class="wscn-http404">
       <div class="pic-404">
-        <img class="pic-404__parent" src="@/assets/404_images/404.png" alt="404">
+        <!-- <img class="pic-404__parent" src="@/assets/404_images/404.png" alt="404">
         <img class="pic-404__child left" src="@/assets/404_images/404_cloud.png" alt="404">
         <img class="pic-404__child mid" src="@/assets/404_images/404_cloud.png" alt="404">
-        <img class="pic-404__child right" src="@/assets/404_images/404_cloud.png" alt="404">
+        <img class="pic-404__child right" src="@/assets/404_images/404_cloud.png" alt="404"> -->
+        <lottie-player src="https://assets6.lottiefiles.com/packages/lf20_1vhutqov.json" background="transparent" speed="1" style="width: 300px; height: 300px;" loop autoplay />
       </div>
       <div class="bullshit">
         <div class="bullshit__oops">OOPS!</div>
@@ -17,13 +18,18 @@
         <a href="" class="bullshit__return-home">Back to home</a>
       </div>
     </div>
+
   </div>
 </template>
 
 <script>
+import LottiePlayer from '@lottiefiles/lottie-player'
 
 export default {
   name: 'Page404',
+  components: {
+    LottiePlayer
+  },
   computed: {
     message() {
       return 'The webmaster said that you can not enter this page...'
