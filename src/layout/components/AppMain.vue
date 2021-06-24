@@ -5,6 +5,8 @@
         <router-view :key="key" />
       </keep-alive>
     </transition>
+    <!-- 子应用挂在节点 -->
+    <main id="subapp-container" />
   </section>
 </template>
 
