@@ -19,6 +19,10 @@ export default {
     readOnly: {
       type: Boolean,
       default: false
+    },
+    options: {
+      type: Object,
+      default: () => {}
     }
   },
   data() {
@@ -42,7 +46,7 @@ export default {
   methods: {
     instanceInit() {
       // 1. 生成实例
-      this.instance = new Tagify(document.querySelector('[name=mix]'), {
+      const defaultOptions = {
         mode: 'mix',
         placeholder: '使用@键入变量',
         enforceWhitelist: true,
@@ -55,7 +59,8 @@ export default {
           mapValueTo: 'value',
           highlightFirst: true
         }
-      })
+      }
+      this.instance = new Tagify(document.querySelector('[name=mix]'), { ...defaultOptions, ...this.options })
       // 2. 加载输入模板
       this.instance.loadOriginalValues(this.input)
       // 3. 绑定事件

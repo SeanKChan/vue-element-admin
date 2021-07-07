@@ -15,6 +15,11 @@
       v-model="content"
       :white-list="whiteList"
       :read-only="isReadOnly"
+      :options="
+        {
+          transformTag: transformTag
+        }
+      "
       @change="onChange"
     />
     <pre>组件模板值: {{ content }}</pre>
@@ -50,6 +55,7 @@ export default {
     },
     transformTag(tagData) {
       tagData.style = '--tag-bg:' + this.getRandomColor()
+      // tagData.style = '--tag-bg: #E83E8C'
     },
     onChange(output) {
       this.output = output
